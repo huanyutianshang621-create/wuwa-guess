@@ -23,6 +23,13 @@ window.WUWA_CONFIG = {
     "images/"
   ],
 
+  /* 图鉴缩略图目录（256px 宽）。
+
+     图鉴一次要摆 57 张图，用原始立绘首屏要下 20 MB 左右；换成缩略图约 0.7 MB。
+     缩略图缺失时会自动退回 IMG_DIRS 里的大图，所以删掉这个目录也能正常玩。
+     想关掉缩略图，把这里改成 "" 即可。 */
+  THUMB_DIR: "images/thumb/",
+
   /* 六属性：名字、颜色、给新手的提示词 */
   ELEMENTS: [
     { id: "glacio",  name: "冷凝", color: "#6fb7ff", hint: "冰霜 · 寒气" },

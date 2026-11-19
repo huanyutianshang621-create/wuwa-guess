@@ -50,6 +50,7 @@ wuwa-guess/
 │  ├─ bios.js          角色简介：键是 data.js 里的 id，图鉴大图里显示
 │  └─ game.js          流程逻辑（出题、判分、存档、渲染）
 ├─ images/             立绘放这里（文件名要和 data.js 里的 img 对上）
+│  └─ thumb/           图鉴缩略图（256px 宽，约 12 KB 一张；删掉就自动用大图）
 ├─ 复制图片.bat        把桌面那个文件夹里的 57 张 webp 拷进 images/
 └─ README.md
 ```
@@ -66,6 +67,10 @@ wuwa-guess/
 - **方法二**：手动把 `.webp` 拖进 `images/`。
 
 图片文件名必须和 `js/data.js` 里的 `img` 字段一致。`js/config.js` 的 `IMG_DIRS` 现在只有 `"images/"` 一项，够用了。
+
+图鉴用的是 `images/thumb/` 里的 256px 缩略图（57 张合计约 0.7 MB，比直接用大图省 20 MB 的流量）。
+加新角色时把同名缩略图一起放进 `thumb/` 就行；忘了放也不会报错，那一格会自动退回大图。
+不想用缩略图，把 `js/config.js` 里的 `THUMB_DIR` 改成 `""`。
 
 ---
 

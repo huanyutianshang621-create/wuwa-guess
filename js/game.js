@@ -249,6 +249,25 @@
     return img;
   }
 
+  /* 图鉴用的小图：先试缩略图，缺了再退回大图 */
+  function makeThumb(c) {
+    var dir = CFG.THUMB_DIR;
+    if (!dir) return makeImg(c);
+    var img = document.createElement("img");
+    img.alt = "";
+    img.loading = "lazy";
+    img.decoding = "async";
+    var fellBack = false;
+    img.onerror = function () {
+      if (fellBack) return;
+      fellBack = true;
+      img.onerror = null;
+      setImg(img, c);
+    };
+    img.src = encodeURI(dir + c.img);
+    return img;
+  }
+
   function renderArt() {
     var c = Q.c;
     if (artId === c.id) return;
@@ -376,7 +395,7 @@
         item.className = "gal-item " + (solved ? "solved" : "unsolved");
         if (solved || CFG.GALLERY_SHOW_LOCKED) item.className += " clickable";
       }
-      item.appendChild(makeImg(c));
+      item.appendChild(makeThumb(c));
 
       if (!preview) {
         var cap = document.createElement("div");
