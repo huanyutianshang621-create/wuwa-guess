@@ -1,0 +1,8 @@
+把 57 张立绘（T_ActivityRole*.webp）放在这个文件夹里。
+
+文件名要和 js/data.js 里的 img 字段完全一致，例如：
+  T_ActivityRoleAnke.webp    →  安可
+
+最省事的做法：双击上一层的「复制图片.bat」。
+
+不放也能玩：js/config.js 的 IMG_DIRS 第二行会直接去读桌面上的原文件夹。
