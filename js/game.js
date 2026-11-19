@@ -268,13 +268,50 @@
     return img;
   }
 
+  /* 对局立绘和放大浮层用中间尺寸那档（1280px），比原图省一半多流量；
+     没有这一档、或者图缺了，就退回原图。 */
+  function setArtImg(img, c) {
+    var dir = CFG.ART_DIR;
+    if (!dir) { setImg(img, c); return; }
+    var fellBack = false;
+    img.onerror = function () {
+      if (fellBack) return;
+      fellBack = true;
+      img.onerror = null;
+      setImg(img, c);
+    };
+    img.src = encodeURI(dir + c.img);
+  }
+
+  function makeArt(c) {
+    var img = document.createElement("img");
+    img.alt = "";
+    img.loading = "eager";
+    img.decoding = "async";
+    if ("fetchPriority" in img) img.fetchPriority = "high";
+    setArtImg(img, c);
+    return img;
+  }
+
+  /* 提前把下一张拉进浏览器缓存：点「下一张」就不用再等网络 */
+  var preloaded = {};
+  function preloadArt(c) {
+    if (!c || preloaded[c.id]) return;
+    preloaded[c.id] = true;
+    var im = new Image();
+    im.src = encodeURI((CFG.ART_DIR || (CFG.IMG_DIRS || ["images/"])[0]) + c.img);
+  }
+
   function renderArt() {
     var c = Q.c;
-    if (artId === c.id) return;
-    artId = c.id;
-    var box = $("art");
-    box.innerHTML = "";
-    box.appendChild(makeImg(c));
+    if (artId !== c.id) {
+      artId = c.id;
+      var box = $("art");
+      box.innerHTML = "";
+      box.appendChild(makeArt(c));
+    }
+    /* 当前这张加载完，顺手把下一张预热 */
+    preloadArt(byId[S.order[S.i + 1]]);
   }
 
   function renderElements() {
@@ -474,7 +511,7 @@
     box.classList.toggle("art-only", !!artOnly);
 
     /* 面板结构是写死在 index.html 里的，这里只换文字和图片，不重建 DOM */
-    setImg($("lb-img"), c);
+    setArtImg($("lb-img"), c);
     $("lb-name").textContent = c.name;
     $("lb-elem").style.color = e.color;
     $("lb-elem-name").textContent = e.name;
@@ -596,6 +633,8 @@
     });
 
     document.addEventListener("keydown", onKey);
+    /* 开始页就把这一张的立绘预热掉，点「开始猜」基本不用等 */
+    if (S.i < S.order.length) preloadArt(byId[S.order[S.i]]);
     showScreen("start");
     if (fresh) toast("先选属性，再选名字；进度自动保存，随时可以关掉");
   }
