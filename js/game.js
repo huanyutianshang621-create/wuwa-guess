@@ -210,7 +210,7 @@
     if (!Q) { renderFinish(st); return; }
     renderArt();
     renderElements();
-    $("name-label").textContent = (S.partial.e === null) ? "先选属性，再选名字" : "她叫什么";
+    $("name-label").textContent = (S.partial.e === null) ? "先选属性，再选名字" : "TA 叫什么";
     renderNames();
     renderAnswer();
   }

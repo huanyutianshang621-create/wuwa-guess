@@ -725,3 +725,22 @@ html { scrollbar-gutter: stable; }
   .lb-bio { font-size: 13px; line-height: 1.75; }
   .lb-foot { display: none; }
 }
+
+/* 手机：顶栏三块（标题 / 进度 / 按钮）必须各占一行内，不许折字 */
+@media (max-width: 560px) {
+  .topbar { gap: 10px; padding: 8px 0 12px; }
+  .brand {
+    font-size: 13px;
+    gap: 7px;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .brand-mark { width: 8px; height: 8px; flex: none; }
+  .stats { gap: 8px; font-size: 12px; flex: none; white-space: nowrap; }
+  .stats .sep { display: none; }
+  #stat-progress, #stat-score { white-space: nowrap; }
+  .tools { flex: none; gap: 6px; }
+  .ghost { padding: 6px 10px; font-size: 12px; white-space: nowrap; }
+}
