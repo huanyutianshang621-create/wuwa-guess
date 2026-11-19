@@ -1,8 +1,9 @@
-把 57 张立绘（T_ActivityRole*.webp）放在这个文件夹里。
+立绘目录
+========
 
-文件名要和 js/data.js 里的 img 字段完全一致，例如：
-  T_ActivityRoleAnke.webp    →  安可
+这里存放 57 个 T_ActivityRole*.webp，文件名必须和 js/data.js 里每行的 img 字段一一对应。
 
-最省事的做法：双击上一层的「复制图片.bat」。
+  从桌面原图导入：双击上一层的「复制图片.bat」。
+  手动导入：把桌面文件夹里的 .webp 全部拖进来，覆盖同名文件即可。
 
-不放也能玩：js/config.js 的 IMG_DIRS 第二行会直接去读桌面上的原文件夹。
+缺图不会让游戏崩掉，只是对应角色会显示成裂图，图鉴里一眼能看出来。

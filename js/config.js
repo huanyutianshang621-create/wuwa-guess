@@ -18,11 +18,9 @@ window.WUWA_CONFIG = {
   SCORE: { element: 10, name: 20, both: 10 },
 
   /* 立绘目录，按顺序尝试，前一个加载失败就用下一个。
-     - 现在默认先找本地 images/，没有就回退到桌面上的原始文件夹。
-     - 把图片放进 images/ 之后，第二行可以删掉，工程就完全自包含了。 */
+     图片已经全部放进 images/，工程是自包含的，换台电脑也能直接玩。 */
   IMG_DIRS: [
-    "images/",
-    "file:///C:/Users/刀河/Desktop/新建文件夹/"
+    "images/"
   ],
 
   /* 六属性：名字、颜色、给新手的提示词 */
